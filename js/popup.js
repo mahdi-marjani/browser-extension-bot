@@ -1,3 +1,5 @@
+const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/1083/1083.wav');
+
 document.getElementById('startButton').addEventListener('click', () => {
     chat_enabled = document.getElementById('chat').checked
     scroll_enabled = document.getElementById('scroll').checked
@@ -13,3 +15,13 @@ document.getElementById('startButton').addEventListener('click', () => {
         });
     });
 });
+
+chrome.runtime.onMessage.addListener(
+    function (message, sender, sendResponse) {
+        if (message.action.type === 'fromBackground') {
+            if (message.action.data === 'alarm') {
+                audio.play();
+            }
+        }
+    }
+);

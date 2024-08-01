@@ -106,6 +106,14 @@ async function processMessages() {
                 if (lastMsg && lastMsg.classList.contains("is-in")) { // if last msg is user
                     const textMsg = document.querySelector('div[data-chat-id].bubbles-inner div.bubbles-date-group:last-child div[data-msg-id]:last-child div.bubble div[rb-copyable]');
                     const userMsg = textMsg.innerText;
+                    if (userMsg === 'alarm') {
+                        chrome.runtime.sendMessage({
+                            action: {
+                                type: 'fromContent',
+                                data: 'alarm'
+                            }
+                        });
+                    }
                     const outputMsg = my_message + ' : ' + userMsg;
                     console.warn(outputMsg);
                     await simulateKeyEvent(textareaDiv, outputMsg);

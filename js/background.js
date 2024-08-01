@@ -1,3 +1,18 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    console.log(`background message : ${message}`)
+
+    if (message.action.type === 'fromContent') {
+
+        if (message.action.data === 'alarm') {
+
+            chrome.runtime.sendMessage({
+                action: {
+                    type: 'fromBackground',
+                    data: 'alarm'
+                }
+            });
+
+        }
+
+    }
+
 });
